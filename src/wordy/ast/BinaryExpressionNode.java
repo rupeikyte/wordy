@@ -4,6 +4,8 @@ import java.util.Map;
 import java.util.Objects;
 
 import static wordy.ast.Utils.orderedMap;
+import wordy.interpreter.EvaluationContext;
+
 
 /**
  * Two expressions joined by an operator (e.g. “x plus y”) in a Wordy abstract syntax tree.
@@ -59,4 +61,20 @@ public class BinaryExpressionNode extends ExpressionNode {
     protected String describeAttributes() {
         return "(operator=" + operator + ')';
     }
+
+    @Override 
+    protected double doEvaluate(EvaluationContext context) {
+        double left = lhs.evaluate(context);
+        double right = rhs.evaluate(context);
+
+        return switch (operator) {
+            case ADDITION -> left + right;
+            case SUBTRACTION -> left - right;
+            case DIVISION -> left / right;
+            case MULTIPLICATION -> left * right;
+            case EXPONENTIATION -> Math.pow(left, right);
+        };
+
+    }
+
 }
