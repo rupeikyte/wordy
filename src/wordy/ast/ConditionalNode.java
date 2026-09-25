@@ -4,6 +4,8 @@ import java.util.Map;
 import java.util.Objects;
 
 import static wordy.ast.Utils.orderedMap;
+import wordy.interpreter.EvaluationContext;
+
 
 /**
  * A conditional (“If … then”) in a Wordy abstract syntax tree.
@@ -72,4 +74,23 @@ public class ConditionalNode extends StatementNode {
     protected String describeAttributes() {
         return "(operator=" + operator + ')';
     }
+
+    @Override 
+    protected void doRun(EvaluationContext context) {
+        double left = lhs.evaluate(context);
+        double right = rhs.evaluate(context);
+
+        boolean condition = switch (operator) {
+            
+            case LESS_THAN -> left < right;
+            case GREATER_THAN -> left > right;
+            case EQUALS -> left == right;
+        };
+        if (condition) {
+            ifTrue.run(context);
+        } else {
+            ifFalse.run(context);
+        }
+
+    } 
 }
