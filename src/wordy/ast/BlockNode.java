@@ -7,6 +7,8 @@ import java.util.Map;
 import java.util.Objects;
 
 import wordy.interpreter.EvaluationContext;
+import java.io.PrintWriter;
+
 
 /**
  * A sequence of zero or more sequentially executed statements in a Wordy abstract syntax tree.
@@ -68,5 +70,14 @@ public class BlockNode extends StatementNode {
         for (var stat : statements) {
             stat.run(context);
         }
+    }
+
+    @Override 
+    public void compile(PrintWriter out) {
+        out.print("{");
+        for (var stat : statements) {
+            stat.compile(out);
+        }
+        out.print("}");
     }
 }

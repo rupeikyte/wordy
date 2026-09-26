@@ -35,4 +35,5 @@ public abstract class ExpressionNode extends ASTNode {
      * Subclasses should implement this to support interpreted execution.
      */
     protected abstract double doEvaluate(EvaluationContext context);
+
 }

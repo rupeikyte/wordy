@@ -5,6 +5,7 @@ import java.util.Objects;
 
 import wordy.interpreter.EvaluationContext;
 import wordy.interpreter.LoopExited;
+import java.io.PrintWriter;
 
 
 
@@ -55,5 +56,11 @@ public class LoopNode extends StatementNode {
                 break;
             }
         }
+    }
+
+    @Override 
+    public void compile(PrintWriter out) {
+        out.print("while (true) ");
+        body.compile(out);
     }
 }
