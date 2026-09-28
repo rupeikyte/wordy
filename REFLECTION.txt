@@ -1,0 +1,20 @@
+Overall, both mine and Paul's solutions are very similar but not identical. It seemed like 
+the behavior is the same for every node I compared. The compiled output differs only in 
+whitespace, which the tests I think ignored, so it makes sense that my test runs passed.
+The more simple nodes (in terms of code), like Variable, are essentially identical. 
+The biggest differences are in how Loop and Conditional are organized.
+
+All interpreter methods that I added are protected, matching the previous methods in the 
+classes. In the solution, they are public. I don't think this posed an issue in running the program
+in this case but would be good for me to think this through in dev garden because I don't
+know why have something public when it could be protected. Here, a public override only matters 
+when the caller has a reference typed as the concrete class, like in Loop.
+
+For the Loop node, the solution tries to lock wraps the whole while(true) loop. When 
+LoopExited is thrown, it leaves the loop, and an empty catch lets execution continue.
+My cathc is actually inside the loop, and the catch calls break. I think the behaviour here is
+the same either way.
+
+These are the key differences, everything else has minor ones. I am the most confused
+about the last commit that the solution has and how I missed that or if I am misunderstanding it
+so I will ask.
